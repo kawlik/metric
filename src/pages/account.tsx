@@ -21,7 +21,7 @@ export default function (props: {}) {
 
 	// component layout
 	return (
-		<AppViewStack flex={1} padding={1}>
+		<AppViewStack flex={1} padding={1} sx={{ overflowY: 'scroll' }}>
 			<Stack alignItems={'center'} gap={2} marginY={'auto'}>
 				<Avatar src={userPhoto} sx={{ height: 128, width: 128 }} />
 				<Typography textAlign={'center'} variant={'h5'}>
