@@ -7,31 +7,45 @@ import {
 	Switch,
 	Typography,
 } from '@mui/material';
-import { useEffect } from 'react';
 import { BillPlanIconMap } from '../configs/@';
+import { AppAlertService } from '../services/@.service';
+import { BillPlanType } from '../types/@';
 
-export default function (props: { plans: string[]; setPlans(plans: string[]): void }) {
+export default function (props: {
+	plans: BillPlanType[];
+	setPlans(plans: BillPlanType[]): void;
+}) {
 	// component logic
-	const chosenPlansSet = new Set(props.plans);
+	const chosenPlansSet = new Set(props.plans.map((plan) => plan.title));
 	const availablePlans = [...BillPlanIconMap].map((plan) => ({
 		icon: plan[1],
 		name: plan[0],
 	}));
 
-	function onPlanChange(plan: string, value: boolean) {
-		if (value) {
-			chosenPlansSet.add(plan);
-		} else {
-			chosenPlansSet.delete(plan);
-		}
+	async function appendPlan(plan: string, filteredPlans: BillPlanType[]) {
+		const limitString = await AppAlertService.prompt('Set plan limit');
+		const limitNumber = Number.parseFloat(limitString);
 
-		props.setPlans([...chosenPlansSet.add('Other')]);
+		if (Number.isNaN(limitNumber) || limitNumber < 0) return;
+
+		props.setPlans([...filteredPlans, { limit: limitNumber, title: plan }]);
+		chosenPlansSet.add(plan);
 	}
 
-	// component lifecycle
-	useEffect(() => {
-		props.setPlans([...chosenPlansSet.add('Other')]);
-	}, []);
+	async function deletePlan(plan: string, filteredPlans: BillPlanType[]) {
+		props.setPlans(filteredPlans);
+		chosenPlansSet.delete(plan);
+	}
+
+	function onPlanChange(plan: string, mode: boolean) {
+		const filteredPlans = props.plans.filter((item) => item.title !== plan);
+
+		if (mode) {
+			appendPlan(plan, filteredPlans);
+		} else {
+			deletePlan(plan, filteredPlans);
+		}
+	}
 
 	// component layout
 	return (
@@ -49,8 +63,6 @@ export default function (props: { plans: string[]; setPlans(plans: string[]): vo
 					<Switch
 						onChange={(e) => onPlanChange(expense.name, e.target.checked)}
 						checked={chosenPlansSet.has(expense.name)}
-						disabled={expense.name === 'Other'}
-						size={'small'}
 					/>
 				</ListItem>
 			))}

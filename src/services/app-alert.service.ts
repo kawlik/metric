@@ -1,11 +1,16 @@
 // define dervice
 class AppAlertService {
-	private readonly messAlert = '';
-	private readonly messError = 'Something went wrong. Please try again later.';
+	private readonly defErrorMessage = 'Something went wrong. Please try again later.';
 
-	alert = (message?: string): Promise<void> =>
+	error = (message?: string): Promise<void> =>
 		new Promise((resolve) => {
-			alert(message || this.messAlert);
+			alert(message || this.defErrorMessage);
+			resolve();
+		});
+
+	alert = (message: string): Promise<void> =>
+		new Promise((resolve) => {
+			alert(message);
 			resolve();
 		});
 
@@ -18,10 +23,9 @@ class AppAlertService {
 			}
 		});
 
-	error = (message?: string): Promise<void> =>
+	prompt = (message: string, defaultValue?: string): Promise<string> =>
 		new Promise((resolve) => {
-			alert(message || this.messError);
-			resolve();
+			resolve(prompt(message, defaultValue) || '');
 		});
 }
 

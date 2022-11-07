@@ -1,10 +1,21 @@
+import { ContactsType } from '../types/@';
+
 // define dervice
 class AppAgentService {
-	constructor(private navigator: Navigator) {}
+	constructor(private navigator: Navigator & ContactsType) {}
 
-	agent = (platform: 'Android' | 'iPad' | 'iPhone') => navigator.userAgent.includes(platform);
+	agentPlatform = (platform: 'Android' | 'iPad' | 'iPhone') =>
+		this.navigator.userAgent.includes(platform);
 
-	share = async (data: { title: string; text?: string }): Promise<void> =>
+	agentSupports = (supports: 'contacts') => !!this.navigator?.contacts;
+
+	selectContact = async (): Promise<Array<{ tel: string[] }>> => {
+		if (!this.navigator?.contacts) return [];
+
+		return await this.navigator.contacts.select(['tel'], { multiple: false });
+	};
+
+	share = async (data: { title: string; text?: string }) =>
 		this.navigator.share({
 			url: 'https://kawlik.github.io/metric',
 			title: data.title,

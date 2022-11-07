@@ -12,7 +12,7 @@ import {
 } from 'firebase/firestore';
 import { async, Subject } from 'rxjs';
 import { FirebaseService, FirestoreService } from './@.service';
-import { BillDataType, BillInfoType } from '../types/@';
+import { BillDataType, BillInfoType, BillPlanType } from '../types/@';
 import { FirebaseCollection } from './utils/@';
 
 // define service
@@ -42,7 +42,7 @@ class BillLedger<T> extends FirebaseCollection<T> {
 
 	openLedger = async (data: {
 		deadline: number;
-		expensesPlan: string[];
+		expensesPlan: BillPlanType[];
 		participants: string[];
 		title: string;
 		type: string;
@@ -53,11 +53,8 @@ class BillLedger<T> extends FirebaseCollection<T> {
 		const billInfoRef = doc(FirestoreService.collectionBillInfo, billDataRef.id);
 
 		batch.set(billDataRef, <BillDataType>{
+			plans: data.expensesPlan,
 			posts: [],
-			plans: data.expensesPlan.map((plan) => ({
-				limit: 0,
-				title: plan,
-			})),
 		});
 
 		batch.set(billInfoRef, <BillInfoType>{

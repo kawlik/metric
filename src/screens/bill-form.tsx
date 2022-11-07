@@ -13,6 +13,7 @@ import {
 	BillFormTopbar,
 } from '../components/@';
 import { AppAlertService, AppNormsService, BillLedgerService } from '../services/@.service';
+import { BillPlanType } from '../types/@';
 
 export default function (props: {}) {
 	// component logic
@@ -27,7 +28,7 @@ export default function (props: {}) {
 	const [billType, setBillType] = useState('Other');
 	const [billTitle, setBillTitle] = useState('');
 	const [currentStep, setCurrentStep] = useState(0);
-	const [expensesPlan, setExpensesPlan] = useState(new Array<string>());
+	const [expensesPlan, setExpensesPlan] = useState(new Array<BillPlanType>());
 	const [participants, setParticipants] = useState(new Array<string>());
 	const [validToDate, setValidToDate] = useState(monthUnix);
 	const [viewLoading, setViewLoading] = useState(false);
