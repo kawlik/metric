@@ -84,7 +84,7 @@ export default function (props: {}) {
 						>
 							{options.map((plan) => (
 								<MenuItem key={plan.name} value={plan.name}>
-									<plan.icon fontSize={'inherit'} />
+									<plan.icon fontSize={'inherit'} sx={{ mb: -0.5 }} />
 									<Typography component={'span'} marginLeft={1} noWrap={true}>
 										{plan.name}
 									</Typography>

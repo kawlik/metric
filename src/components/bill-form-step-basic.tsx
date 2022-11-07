@@ -71,12 +71,12 @@ export default function (props: {
 				<Select
 					onChange={(e) => props.setType(e.target.value)}
 					size={'small'}
-					sx={{ overflowX: 'hidden' }}
+					sx={{ overflowX: 'hidden', width: 96 }}
 					value={props.type}
 				>
 					{options.map((plan) => (
 						<MenuItem key={plan.name} value={plan.name}>
-							<plan.icon fontSize={'inherit'} />
+							<plan.icon fontSize={'inherit'} sx={{ mb: -0.5 }} />
 							<Typography component={'span'} marginLeft={1} noWrap={true}>
 								{plan.name}
 							</Typography>

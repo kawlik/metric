@@ -35,6 +35,7 @@ export default function (props: {}) {
 			elevation={0}
 			key={objective.time}
 			position={'static'}
+			sx={{ borderLeft: 0, borderRight: 0 }}
 			variant={'outlined'}
 		>
 			<Toolbar>

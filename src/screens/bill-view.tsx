@@ -46,7 +46,11 @@ export default function (props: {}) {
 	}
 
 	async function openReport() {
-		if (confirm('Are you sure you want to close the current ledger?')) {
+		const confirmed = await AppAlertService.confirm(
+			'Are you sure you want to close the current ledger?',
+		);
+
+		if (confirmed) {
 			setIsPending(true);
 
 			try {

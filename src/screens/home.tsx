@@ -1,7 +1,7 @@
 import { Outlet as PageOutlet, useNavigate, useParams } from 'react-router-dom';
 import { HomeTabbar, HomeTopbar } from '../components/@';
 import { useContexts } from '../contexts/@';
-import { UserAuthService } from '../services/@.service';
+import { AppAlertService, UserAuthService } from '../services/@.service';
 
 export default function (props: {}) {
 	// component logic
@@ -12,8 +12,10 @@ export default function (props: {}) {
 	const userAvatar = contexts.userAuth.get()?.photoURL!;
 	const currentPage = pathname['*']?.split('/')[0] || 'Metric';
 
-	function logout() {
-		if (confirm('Are you sure you want to log out?')) {
+	async function logout() {
+		const confirmed = await AppAlertService.confirm('Are you sure you want to log out?');
+
+		if (confirmed) {
 			UserAuthService.logout();
 		}
 	}
