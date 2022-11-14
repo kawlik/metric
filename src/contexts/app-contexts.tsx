@@ -4,6 +4,7 @@ import {
 	BillInfoType,
 	ContextsType,
 	UserAuthType,
+	UserDataType,
 	UserModeType,
 } from '../types/@';
 
@@ -17,6 +18,7 @@ export const AppContext = createContext<{
 	billReports: ContextsType<BillInfoType[] | undefined>;
 	userAuth: ContextsType<UserAuthType>;
 	userMode: ContextsType<UserModeType>;
+	userData: ContextsType<Map<string, UserDataType>>;
 }>({
 	billData: { get: () => null, set: (ctx) => {} },
 	billInfo: { get: () => null, set: (ctx) => {} },
@@ -26,6 +28,7 @@ export const AppContext = createContext<{
 	isSignedUp: { get: () => false, set: (ctx) => {} },
 	userAuth: { get: () => undefined, set: (ctx) => {} },
 	userMode: { get: () => undefined, set: (ctx) => {} },
+	userData: { get: () => new Map(), set: (ctx) => {} },
 });
 
 // export consumer

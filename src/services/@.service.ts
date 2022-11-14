@@ -10,8 +10,6 @@ export { default as BillPostalService } from './bill-postal.service';
 export { default as BillReportService } from './bill-report.service';
 export { default as FirebaseService } from './firebase.service';
 export { default as FirestoreService } from './firestore.service';
-export { default as LedgersListService } from './ledger-list.service';
-export { default as ReportsListService } from './reports-list.service';
 export { default as StorageCloudService } from './storage-cloud.service';
 export { default as StorageLocalService } from './storage-local.service';
 export { default as UserAuthService } from './user-auth.service';

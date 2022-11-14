@@ -7,8 +7,15 @@ import {
 	BillReportService,
 	StorageLocalService,
 	UserAuthService,
+	UserDataService,
 } from '../services/@.service';
-import { BillDataType, BillInfoType, UserAuthType, UserModeType } from '../types/@';
+import {
+	BillDataType,
+	BillInfoType,
+	UserAuthType,
+	UserDataType,
+	UserModeType,
+} from '../types/@';
 import { AppContext } from './app-contexts';
 
 export default function (props: PropsWithChildren) {
@@ -26,6 +33,7 @@ export default function (props: PropsWithChildren) {
 	const [isSignedUp, setIsSignedUp] = useState<boolean>(false);
 	const [userAuth, setUserAuth] = useState<UserAuthType>(undefined);
 	const [userMode, setUserMode] = useState<UserModeType>(undefined);
+	const [userData, setUserData] = useState<Map<string, UserDataType>>(new Map());
 
 	// component lifecycle
 	useEffect(() => {
@@ -56,6 +64,12 @@ export default function (props: PropsWithChildren) {
 	}, [userAuth]);
 
 	useEffect(() => {
+		UserDataService.getUsers(billInfo?.participants!).then((users) =>
+			setUserData(new Map([...userData, ...users])),
+		);
+	}, [billInfo]);
+
+	useEffect(() => {
 		setUserMode(preferesMode || preferedMode);
 	}, [preferedMode]);
 
@@ -74,6 +88,7 @@ export default function (props: PropsWithChildren) {
 					isSignedUp: { get: () => isSignedUp, set: setIsSignedUp },
 					userAuth: { get: () => userAuth, set: setUserAuth },
 					userMode: { get: () => userMode, set: setUserMode },
+					userData: { get: () => userData, set: setUserData },
 				}}
 			/>
 		</ThemeProvider>

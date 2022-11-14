@@ -7,6 +7,7 @@ export default function (props: {}) {
 	const contexts = useContexts();
 
 	const posts = contexts.billData.get()?.posts || [];
+	const users = contexts.userData.get()!;
 	const user = contexts.userAuth.get()!;
 
 	// component layout
@@ -22,6 +23,7 @@ export default function (props: {}) {
 			{posts.map((post, index) => (
 				<ListItem key={index} sx={{ alignItems: 'flex-start', gap: 1, order: -index }}>
 					<Avatar
+						src={users.get(post.user)?.displayPict}
 						sx={{
 							height: 32,
 							width: 32,
@@ -40,7 +42,7 @@ export default function (props: {}) {
 						<BillChatEntry post={post} />
 					</Paper>
 					<Avatar
-						src={user.photoURL!}
+						src={users.get(post.user)?.displayPict}
 						sx={{
 							height: 32,
 							width: 32,

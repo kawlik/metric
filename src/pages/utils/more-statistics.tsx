@@ -7,11 +7,12 @@ export default function (props: {}) {
 
 	const posts = contexts.billData.get()?.posts || [];
 	const users = contexts.billInfo.get()?.participants || [];
+	const usersMap = contexts.userData.get()!;
 
 	// component layout
 	return (
 		<AppViewStack flex={1} gap={1}>
-			<BillStatsSummary posts={posts} users={users} />
+			<BillStatsSummary posts={posts} users={users} usersMap={usersMap} />
 		</AppViewStack>
 	);
 }

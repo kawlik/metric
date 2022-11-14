@@ -7,9 +7,13 @@ import {
 	Stack,
 	Typography,
 } from '@mui/material';
-import { BillPostType } from '../types/@';
+import { BillPostType, UserDataType } from '../types/@';
 
-export default function (props: { posts: BillPostType[]; users: string[] }) {
+export default function (props: {
+	posts: BillPostType[];
+	users: string[];
+	usersMap?: Map<string, UserDataType>;
+}) {
 	// component logic
 	const totalPosts = props.posts.length;
 	const totalValue = props.posts
@@ -45,7 +49,7 @@ export default function (props: { posts: BillPostType[]; users: string[] }) {
 				{props.users.map((user) => (
 					<ListItem key={user}>
 						<ListItemAvatar>
-							<Avatar />
+							<Avatar src={props.usersMap?.get(user)?.displayPict} />
 						</ListItemAvatar>
 						<ListItemText
 							primary={
@@ -55,7 +59,7 @@ export default function (props: { posts: BillPostType[]; users: string[] }) {
 							}
 							secondary={
 								<Typography noWrap={true} variant={'subtitle2'}>
-									{user}
+									{props.usersMap?.get(user)?.displayName || user}
 								</Typography>
 							}
 						/>
