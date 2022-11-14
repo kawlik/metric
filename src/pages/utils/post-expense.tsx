@@ -27,6 +27,7 @@ export default function (props: {}) {
 	const contexts = useContexts();
 	const navigate = useNavigate();
 
+	const usersMap = contexts.userData.get()!;
 	const document = contexts.billInfo.get()?.id!;
 	const balance = contexts.billInfo.get()?.balance!;
 	const options = [...BillPlanIconMap].map((plan) => ({
@@ -132,7 +133,7 @@ export default function (props: {}) {
 						{contexts.billInfo.get()?.participants.map((user) => (
 							<MenuItem key={user} value={user}>
 								<Typography component={'span'} marginLeft={1} noWrap={true}>
-									{user}
+									{usersMap.get(user)?.displayName || user}
 								</Typography>
 							</MenuItem>
 						))}
