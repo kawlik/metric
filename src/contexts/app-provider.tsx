@@ -38,8 +38,6 @@ export default function (props: PropsWithChildren) {
 	// component lifecycle
 	useEffect(() => {
 		UserAuthService.subscribeOn().subscribe((user) => {
-			console.log(user);
-
 			setIsSignedUp(!!user?.displayName);
 			setIsSignedIn(!!user);
 			setUserAuth(user);
