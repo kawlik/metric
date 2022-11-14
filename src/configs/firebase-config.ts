@@ -2,10 +2,10 @@ import { initializeApp } from 'firebase/app';
 
 // intialize Firebase app
 export default initializeApp({
-	apiKey: 'AIzaSyAn6fSRkckaJkqkizHCXi0IRJIjtptSOB8',
-	authDomain: 'metric-dev-7d749.firebaseapp.com',
-	projectId: 'metric-dev-7d749',
-	storageBucket: 'metric-dev-7d749.appspot.com',
-	messagingSenderId: '972904868039',
-	appId: '1:972904868039:web:7be9585086f7672dc776e2',
+	apiKey: 'AIzaSyCL44B69DWhNHIItEKLS7o2rb1xTnOF1tk',
+	authDomain: 'metric-fb30a.firebaseapp.com',
+	projectId: 'metric-fb30a',
+	storageBucket: 'metric-fb30a.appspot.com',
+	messagingSenderId: '358178704961',
+	appId: '1:358178704961:web:09858e70663ec2482300c0',
 });

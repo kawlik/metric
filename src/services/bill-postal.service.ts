@@ -47,11 +47,12 @@ class BillPostalService {
 			cost: number;
 			plan: string;
 			text: string;
+			user: string;
 		},
 	): Promise<void> => {
 		const post: BillPostType = {
 			time: Timestamp.now(),
-			user: FirebaseService.Auth.currentUser?.phoneNumber!,
+			user: data.user,
 			post: {
 				cost: data.cost,
 				plan: data.plan,

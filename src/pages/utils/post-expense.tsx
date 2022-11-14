@@ -59,6 +59,7 @@ export default function (props: {}) {
 				cost: expenseCostValue,
 				plan: expensePlan,
 				text: expenseName,
+				user: expenseUser,
 			});
 
 			navigate(-1);
