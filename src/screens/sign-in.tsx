@@ -44,7 +44,7 @@ export default function (props: {}) {
 	// component lifecycle
 	useEffect(() => {
 		if (contexts.isSignedIn.get() === true) {
-			// navigate('/sign-up/');
+			navigate('/sign-up/');
 		}
 	}, [contexts.isSignedIn]);
 
