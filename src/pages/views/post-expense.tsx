@@ -1,4 +1,4 @@
-import { AttachMoney, Sell } from '@mui/icons-material';
+import { AttachMoney, Person, Sell } from '@mui/icons-material';
 import {
 	Avatar,
 	Box,
@@ -38,6 +38,7 @@ export default function (props: {}) {
 	const [expenseCost, setExpenseCost] = useState('');
 	const [expenseName, setExpenseName] = useState('');
 	const [expensePlan, setExpensePlan] = useState('Other');
+	const [expenseUser, setExpenseUser] = useState(contexts.userAuth.get()?.phoneNumber!);
 	const [isSending, setIsSending] = useState(false);
 
 	const canSend = !!expenseName.trim() && +expenseCost > 0;
@@ -79,7 +80,7 @@ export default function (props: {}) {
 						<Select
 							onChange={(e) => setExpensePlan(e.target.value)}
 							size={'small'}
-							sx={{ overflowX: 'hidden' }}
+							sx={{ overflowX: 'hidden', width: 96 }}
 							value={expensePlan}
 						>
 							{options.map((plan) => (
@@ -117,6 +118,25 @@ export default function (props: {}) {
 							),
 						}}
 					/>
+					<Select
+						onChange={(e) => setExpenseUser(e.target.value)}
+						size={'small'}
+						sx={{ overflowX: 'hidden' }}
+						value={expenseUser}
+						startAdornment={
+							<InputAdornment position={'start'}>
+								<Person />
+							</InputAdornment>
+						}
+					>
+						{contexts.billInfo.get()?.participants.map((user) => (
+							<MenuItem key={user} value={user}>
+								<Typography component={'span'} marginLeft={1} noWrap={true}>
+									{user}
+								</Typography>
+							</MenuItem>
+						))}
+					</Select>
 					<Button
 						disabled={!canSend || isSending}
 						endIcon={<Sell />}
